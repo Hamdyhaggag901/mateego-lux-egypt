@@ -36,18 +36,18 @@ export default function Navbar() {
       {/* Main nav */}
       <nav style={{
         position: 'sticky', top: 0, zIndex: 100,
-        background: scrolled ? '#fff' : '#111111',
-        boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.08)' : 'none',
-        transition: 'background 0.2s, box-shadow 0.2s',
+        background: scrolled ? '#fff' : 'transparent',
+        boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.1)' : 'none',
+        transition: 'background 0.3s, box-shadow 0.3s',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '0 40px', height: 64,
       }}>
         <Link to="/" style={{
           fontFamily: 'var(--font-heading)', fontStyle: 'italic', fontSize: 28,
           color: scrolled ? '#111' : '#fff', fontWeight: 500, letterSpacing: 1,
-          transition: 'color 0.2s',
+          transition: 'color 0.3s',
         }}>
-          Mateego
+          Mateego Explorers
         </Link>
 
         <div style={{ display: 'flex', gap: 28, alignItems: 'center' }} className="nav-center">

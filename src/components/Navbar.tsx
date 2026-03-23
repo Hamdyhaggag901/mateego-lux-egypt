@@ -20,6 +20,8 @@ export default function Navbar() {
     <>
       {/* Top bar */}
       <div style={{
+        position: scrolled ? 'fixed' : 'absolute',
+        top: 0, left: 0, right: 0, zIndex: 101,
         background: '#B9985A', height: 36, display: 'flex', alignItems: 'center',
         justifyContent: 'space-between', padding: '0 40px', fontSize: 12, color: '#fff',
         fontWeight: 400, letterSpacing: 1,
@@ -35,7 +37,8 @@ export default function Navbar() {
 
       {/* Main nav */}
       <nav style={{
-        position: 'sticky', top: 0, zIndex: 100,
+        position: scrolled ? 'fixed' : 'absolute',
+        top: 36, left: 0, right: 0, zIndex: 100,
         background: scrolled ? '#fff' : 'transparent',
         boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.1)' : 'none',
         transition: 'background 0.3s, box-shadow 0.3s',

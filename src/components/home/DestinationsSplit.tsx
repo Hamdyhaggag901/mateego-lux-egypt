@@ -6,7 +6,7 @@ export default function DestinationsSplit() {
   const [hovered, setHovered] = useState(0);
 
   return (
-    <section className="fade-up" style={{ display: 'flex', minHeight: 600 }} className2="dest-split">
+    <section className="fade-up" style={{ display: 'flex', minHeight: 600 }}>
       <div style={{
         flex: '1 1 50%', position: 'relative', overflow: 'hidden',
       }}>
@@ -44,13 +44,6 @@ export default function DestinationsSplit() {
           ))}
         </div>
       </div>
-
-      <style>{`
-        @media (max-width: 768px) {
-          section.fade-up { flex-direction: column !important; }
-          section.fade-up > div:first-child { height: 300px; position: relative; }
-        }
-      `}</style>
     </section>
   );
 }

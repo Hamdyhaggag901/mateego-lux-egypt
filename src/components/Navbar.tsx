@@ -6,6 +6,7 @@ import MobileMenu from './MobileMenu';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+
   const [megaOpen, setMegaOpen] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 

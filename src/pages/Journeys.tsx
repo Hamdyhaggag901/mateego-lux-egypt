@@ -224,7 +224,6 @@ export default function Journeys() {
         </div>
       </section>
 
-      Footer()
       <Footer />
       <StickyBottomBar />
       <WhatsAppButton />

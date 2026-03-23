@@ -57,7 +57,7 @@ export default function Navbar() {
               onClick={() => setMegaOpen(megaOpen === link.label ? null : link.label)}
               style={{
                 color: scrolled ? '#111' : '#fff', fontSize: 11, letterSpacing: 2,
-                textTransform: 'uppercase', fontWeight: 400, transition: 'color 0.2s',
+                textTransform: 'uppercase', fontWeight: 400, transition: 'color 0.3s',
                 background: 'none', border: 'none', cursor: 'pointer',
               }}
             >

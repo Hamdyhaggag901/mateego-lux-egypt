@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ARTICLES } from '@/data/siteData';
 
 export default function GetInspired() {
@@ -31,40 +32,42 @@ export default function GetInspired() {
           padding: '20px 0',
         }}>
           {ARTICLES.map((a, i) => (
-            <div key={a.title} style={{
-              flex: '0 0 260px', borderRadius: 8, overflow: 'hidden',
-              position: 'relative', height: 360, scrollSnapAlign: 'center',
-              transform: i === active ? 'scale(1.05)' : 'scale(1)',
-              boxShadow: i === active ? '0 12px 40px rgba(0,0,0,0.2)' : '0 4px 12px rgba(0,0,0,0.1)',
-              transition: 'transform 0.4s, box-shadow 0.4s',
-              cursor: 'pointer',
-            }}>
-              <img src={a.image} alt={a.title} style={{
-                width: '100%', height: '100%', objectFit: 'cover',
-              }} />
-              {i === active && (
-                <div style={{
-                  position: 'absolute', inset: 0,
-                  border: '6px solid rgba(255,255,255,0.4)',
-                  borderRadius: 8, pointerEvents: 'none',
-                }} />
-              )}
+            <Link to={`/articles/${a.slug}`} key={a.title} style={{ textDecoration: 'none', flex: '0 0 260px' }}>
               <div style={{
-                position: 'absolute', bottom: 0, left: 0, right: 0,
-                background: 'linear-gradient(transparent, rgba(0,0,0,0.7))',
-                padding: 24,
+                borderRadius: 8, overflow: 'hidden',
+                position: 'relative', height: 360, scrollSnapAlign: 'center',
+                transform: i === active ? 'scale(1.05)' : 'scale(1)',
+                boxShadow: i === active ? '0 12px 40px rgba(0,0,0,0.2)' : '0 4px 12px rgba(0,0,0,0.1)',
+                transition: 'transform 0.4s, box-shadow 0.4s',
+                cursor: 'pointer',
               }}>
+                <img src={a.image} alt={a.title} style={{
+                  width: '100%', height: '100%', objectFit: 'cover',
+                }} />
+                {i === active && (
+                  <div style={{
+                    position: 'absolute', inset: 0,
+                    border: '6px solid rgba(255,255,255,0.4)',
+                    borderRadius: 8, pointerEvents: 'none',
+                  }} />
+                )}
                 <div style={{
-                  color: '#fff', fontFamily: 'var(--font-heading)',
-                  fontSize: 20, marginBottom: 12,
+                  position: 'absolute', bottom: 0, left: 0, right: 0,
+                  background: 'linear-gradient(transparent, rgba(0,0,0,0.7))',
+                  padding: 24,
                 }}>
-                  {a.title}
+                  <div style={{
+                    color: '#fff', fontFamily: 'var(--font-heading)',
+                    fontSize: 20, marginBottom: 12,
+                  }}>
+                    {a.title}
+                  </div>
+                  <span className="btn-lavender" style={{ fontSize: 10, padding: '6px 16px' }}>
+                    Read more
+                  </span>
                 </div>
-                <span className="btn-lavender" style={{ fontSize: 10, padding: '6px 16px' }}>
-                  Read more
-                </span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 

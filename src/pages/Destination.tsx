@@ -3,14 +3,56 @@ import { useScrollFade } from '@/hooks/useScrollFade';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
-import { DESTINATIONS, JOURNEYS, HOTELS, TESTIMONIALS, IMAGES } from '@/data/siteData';
+import { DESTINATIONS, JOURNEYS, HOTELS, TESTIMONIALS, DESTINATION_SEO } from '@/data/siteData';
 
 const features: Record<string, { icon: string; label: string }[]> = {
+  cairo: [
+    { icon: '🏛️', label: 'Great Pyramids' },
+    { icon: '🏺', label: 'Egyptian Museum' },
+    { icon: '🕌', label: 'Islamic Cairo' },
+    { icon: '🛍️', label: 'Khan el-Khalili' },
+  ],
+  luxor: [
+    { icon: '🏛️', label: 'Karnak Temple' },
+    { icon: '👑', label: 'Valley of Kings' },
+    { icon: '🎈', label: 'Hot air balloons' },
+    { icon: '🏺', label: 'Hatshepsut Temple' },
+  ],
+  aswan: [
+    { icon: '⛵', label: 'Felucca sailing' },
+    { icon: '🏛️', label: 'Abu Simbel' },
+    { icon: '🎨', label: 'Nubian villages' },
+    { icon: '🏝️', label: 'Philae Temple' },
+  ],
+  'nile-cruises': [
+    { icon: '🚢', label: 'Luxury vessels' },
+    { icon: '🏛️', label: 'Temple stops' },
+    { icon: '🍽️', label: 'Gourmet dining' },
+    { icon: '🌅', label: 'Nile sunsets' },
+  ],
+  'siwa-oasis': [
+    { icon: '🏜️', label: 'Desert paradise' },
+    { icon: '🏊', label: 'Salt lakes' },
+    { icon: '🏛️', label: 'Oracle Temple' },
+    { icon: '⭐', label: 'Stargazing' },
+  ],
+  'white-desert': [
+    { icon: '🪨', label: 'Chalk formations' },
+    { icon: '⛺', label: 'Desert camping' },
+    { icon: '🌌', label: 'Star-filled skies' },
+    { icon: '🏜️', label: 'Safari tours' },
+  ],
   alexandria: [
-    { icon: '🏺', label: 'Historic artefacts' },
-    { icon: '🦐', label: 'Delicious seafood' },
-    { icon: '🏛️', label: 'Ancient landmarks' },
-    { icon: '🌿', label: 'Picturesque gardens' },
+    { icon: '📚', label: 'Bibliotheca' },
+    { icon: '🏰', label: 'Qaitbay Citadel' },
+    { icon: '🦐', label: 'Fresh seafood' },
+    { icon: '🌊', label: 'Mediterranean' },
+  ],
+  sinai: [
+    { icon: '⛰️', label: 'Mount Sinai' },
+    { icon: '🤿', label: 'Coral reefs' },
+    { icon: '🏕️', label: 'Bedouin camps' },
+    { icon: '⛪', label: 'St. Catherine' },
   ],
 };
 
@@ -26,9 +68,13 @@ export default function Destination() {
   const { slug } = useParams();
   const dest = DESTINATIONS.find((d) => d.slug === slug) || DESTINATIONS[0];
   const feats = features[slug || ''] || defaultFeatures;
+  const seo = DESTINATION_SEO[slug || ''];
 
   return (
     <div style={{ paddingBottom: 60 }}>
+      {seo && (
+        <title>{seo.metaTitle}</title>
+      )}
       <Navbar />
 
       {/* Hero */}
@@ -42,8 +88,11 @@ export default function Destination() {
             <Link to="/" style={{ color: 'rgba(255,255,255,0.7)' }}>Home</Link> / <Link to="/journeys" style={{ color: 'rgba(255,255,255,0.7)' }}>Destinations</Link> / {dest.name}
           </div>
           <h1 style={{ fontFamily: 'var(--font-heading)', color: '#fff', fontSize: 'clamp(32px, 5vw, 52px)' }}>
-            Luxury {dest.name} Tours <em>made for you</em>
+            {seo ? seo.h1 : `Luxury ${dest.name} Tours`} <em>made for you</em>
           </h1>
+          {seo && (
+            <meta name="description" content={seo.metaDescription} />
+          )}
         </div>
       </section>
 
@@ -66,10 +115,18 @@ export default function Destination() {
             <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 40, marginBottom: 24 }}>
               Discover {dest.name}
             </h2>
-            <p style={{ color: '#6b6259', lineHeight: 1.8, marginBottom: 16 }}>{dest.description}</p>
-            <p style={{ color: '#6b6259', lineHeight: 1.8 }}>
-              Our Travel Designers know every corner of {dest.name}, from its grand monuments to its hidden local gems. Let us craft an experience that goes beyond the ordinary, immersing you in the authentic spirit of this remarkable destination.
-            </p>
+            {seo ? (
+              seo.content.map((p, i) => (
+                <p key={i} style={{ color: '#6b6259', lineHeight: 1.8, marginBottom: 16 }}>{p}</p>
+              ))
+            ) : (
+              <>
+                <p style={{ color: '#6b6259', lineHeight: 1.8, marginBottom: 16 }}>{dest.description}</p>
+                <p style={{ color: '#6b6259', lineHeight: 1.8 }}>
+                  Our Travel Designers know every corner of {dest.name}, from its grand monuments to its hidden local gems. Let us craft an experience that goes beyond the ordinary, immersing you in the authentic spirit of this remarkable destination.
+                </p>
+              </>
+            )}
           </div>
           <div>
             <div style={{ background: '#F5F0E8', padding: 32, borderRadius: 8, marginBottom: 24 }}>

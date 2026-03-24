@@ -31,7 +31,7 @@ export default function Contact() {
           <div>
             <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 36, marginBottom: 24 }}>Contact us</h2>
             <div style={{ color: '#6b6259', lineHeight: 2, fontSize: 15 }}>
-              <div><strong>Phone:</strong> +1 (800) MATEEGO</div>
+              <div><strong>Phone:</strong> +201121012676</div>
               <div><strong>Email:</strong> enquire@mateegoexplorers.com</div>
               <div><strong>Press:</strong> press@mateegoexplorers.com</div>
             </div>

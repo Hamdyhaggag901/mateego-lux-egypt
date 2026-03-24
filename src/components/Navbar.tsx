@@ -26,7 +26,7 @@ export default function Navbar() {
         justifyContent: 'space-between', padding: '0 40px', fontSize: 12, color: '#fff',
         fontWeight: 400, letterSpacing: 1,
       }}>
-        <span>+1 (800) MATEEGO</span>
+        <a href="tel:+201121012676" style={{ color: '#fff', textDecoration: 'none' }}>+201121012676</a>
         <div style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
           <button style={{ color: '#fff', fontSize: 12, letterSpacing: 1 }}>SEARCH</button>
           <button onClick={() => setMobileOpen(true)} style={{ color: '#fff', fontSize: 12, letterSpacing: 1 }}>

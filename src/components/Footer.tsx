@@ -42,7 +42,7 @@ export default function Footer() {
           <div>
             <div className="gold-label" style={{ marginBottom: 20 }}>GET IN TOUCH</div>
             <div style={{ color: '#ccc', fontSize: 14, lineHeight: 2 }}>
-              +1 (800) MATEEGO<br/>
+              +201121012676<br/>
               enquire@mateegoexplorers.com<br/>
               press@mateegoexplorers.com
             </div>

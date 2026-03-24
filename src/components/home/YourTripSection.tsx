@@ -35,8 +35,11 @@ export default function YourTripSection() {
           fontFamily: 'var(--font-heading)', fontSize: 'clamp(32px, 5vw, 52px)',
           marginBottom: 16,
         }}>
-          Your trip, <em>your story</em>
+          Your Journey. Your Egypt. <em>Your Story.</em>
         </h2>
+        <p style={{ color: '#6b6259', maxWidth: 800, margin: '0 auto', lineHeight: 1.8, fontSize: 16 }}>
+          Every Egypt travel experience we craft is uniquely yours. Our expert Egypt tour specialists combine first-hand knowledge, honest advice, and deep local connections to design private Egypt trips that go beyond the ordinary — from the pyramids of Giza to the silence of the White Desert.
+        </p>
       </div>
 
       {/* Slider viewport */}

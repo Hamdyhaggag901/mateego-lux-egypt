@@ -1,10 +1,12 @@
 import { useScrollFade } from '@/hooks/useScrollFade';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import StickyBottomBar from '@/components/StickyBottomBar';
 import WhatsAppButton from '@/components/WhatsAppButton';
-import { IMAGES, JOURNEYS, HOTELS, DESTINATIONS, TESTIMONIALS } from '@/data/siteData';
+import { IMAGES, HOTELS, TESTIMONIALS } from '@/data/siteData';
+import { getTours, getDestinations } from '@/lib/wordpress';
 
 const highlights = [
   { icon: '🏛️', label: 'Ancient history' },
@@ -18,6 +20,14 @@ const tabs = ['HIGHLIGHTS', 'WHERE TO STAY', 'TRIP INSPIRATION', 'WHERE TO GO', 
 
 export default function Journeys() {
   useScrollFade();
+
+  const [tours, setTours] = useState<any[]>([]);
+  const [destinations, setDestinations] = useState<any[]>([]);
+
+  useEffect(() => {
+    getTours().then(setTours);
+    getDestinations().then(setDestinations);
+  }, []);
 
   return (
     <div style={{ paddingBottom: 60 }}>
@@ -138,33 +148,37 @@ export default function Journeys() {
         </div>
       </section>
 
-      {/* Trip Inspiration grid */}
+      {/* Trip Inspiration grid - من WordPress */}
       <section className="fade-up" style={{ padding: '80px 0' }}>
         <div className="container">
           <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 40, textAlign: 'center', marginBottom: 48 }}>
             Trip Inspiration
           </h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32 }} className="journey-grid">
-            {JOURNEYS.map((j) => (
+            {tours.length > 0 ? tours.map((j: any) => (
               <Link key={j.slug} to={`/journeys/${j.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div style={{ borderRadius: 8, overflow: 'hidden', background: '#fff', boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }}>
                   <div style={{ height: 220, overflow: 'hidden' }}>
-                    <img src={j.image} alt={j.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s' }} />
+                    <img
+                      src={j._embedded?.['wp:featuredmedia']?.[0]?.source_url || IMAGES.pyramids}
+                      alt={j.title?.rendered}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s' }}
+                    />
                   </div>
                   <div style={{ padding: 24 }}>
-                    <div style={{ display: 'flex', gap: 8, alignItems: 'center', color: '#6b6259', fontSize: 13, marginBottom: 8 }}>
-                      <span>🕐</span> {j.days} days
-                    </div>
-                    <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: 24, marginBottom: 8 }}>{j.title}</h3>
-                    <p style={{ color: '#6b6259', fontSize: 14, lineHeight: 1.6, marginBottom: 16 }}>{j.description}</p>
-                    <div style={{ color: '#B9985A', fontSize: 15, fontWeight: 700, marginBottom: 16 }}>
-                      From ${j.price.toLocaleString()} pp
-                    </div>
+                    <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: 24, marginBottom: 8 }}
+                      dangerouslySetInnerHTML={{ __html: j.title?.rendered }}
+                    />
+                    <div style={{ color: '#6b6259', fontSize: 14, lineHeight: 1.6, marginBottom: 16 }}
+                      dangerouslySetInnerHTML={{ __html: j.excerpt?.rendered }}
+                    />
                     <span className="btn-lavender" style={{ fontSize: 11, padding: '8px 20px' }}>Enquire →</span>
                   </div>
                 </div>
               </Link>
-            ))}
+            )) : (
+              <div style={{ color: '#6b6259', gridColumn: '1/-1', textAlign: 'center' }}>Loading tours...</div>
+            )}
           </div>
         </div>
       </section>
@@ -193,7 +207,7 @@ export default function Journeys() {
         </div>
       </section>
 
-      {/* Where to Go */}
+      {/* Where to Go - من WordPress */}
       <section className="fade-up" style={{ padding: '80px 0' }}>
         <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48 }}>
           <div style={{ background: '#F5F0E8', borderRadius: 12, padding: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -209,14 +223,22 @@ export default function Journeys() {
           </div>
           <div>
             <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 36, marginBottom: 32 }}>Where to Go</h2>
-            {DESTINATIONS.slice(0, 6).map((d) => (
+            {destinations.slice(0, 6).map((d: any) => (
               <Link key={d.slug} to={`/destinations/${d.slug}`} style={{
                 display: 'flex', gap: 16, padding: '16px 0', borderBottom: '1px solid #eee', alignItems: 'center',
               }}>
-                <img src={d.image} alt={d.name} style={{ width: 80, height: 60, objectFit: 'cover', borderRadius: 4 }} />
+                <img
+                  src={d._embedded?.['wp:featuredmedia']?.[0]?.source_url || IMAGES.pyramids}
+                  alt={d.title?.rendered}
+                  style={{ width: 80, height: 60, objectFit: 'cover', borderRadius: 4 }}
+                />
                 <div>
-                  <div style={{ fontFamily: 'var(--font-heading)', fontSize: 20 }}>{d.name}</div>
-                  <div style={{ color: '#6b6259', fontSize: 13 }}>{d.description}</div>
+                  <div style={{ fontFamily: 'var(--font-heading)', fontSize: 20 }}
+                    dangerouslySetInnerHTML={{ __html: d.title?.rendered }}
+                  />
+                  <div style={{ color: '#6b6259', fontSize: 13 }}
+                    dangerouslySetInnerHTML={{ __html: d.excerpt?.rendered }}
+                  />
                 </div>
               </Link>
             ))}

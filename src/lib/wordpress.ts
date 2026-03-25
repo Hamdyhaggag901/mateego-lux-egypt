@@ -1,4 +1,4 @@
-const API = 'https://cms.mateegoexplorers.com/wp-json/wp/v2';
+const API = 'http://mateegocms.42web.io/wp-json/wp/v2';
 
 export async function getTours() {
   const res = await fetch(`${API}/tours?_embed&per_page=100`);
